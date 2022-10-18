@@ -8,14 +8,20 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utilities.Helper;
 
 import java.time.Duration;
 
+
 public class LoginPage {
+    int emailLength = 10;
+
+    private final Helper hc;
 
     public LoginPage() {
         PageFactory.initElements(AppDriver.getDriver(), this);
       //  PageFactory.initElements(new AppiumFieldDecorator(AppDriver.getDriver()), this);
+        hc = new Helper();
     }
 
     /*
@@ -79,11 +85,20 @@ public class LoginPage {
         new WebDriverWait(AppDriver.getDriver(), Duration.ofSeconds(30)).until(ExpectedConditions.presenceOfElementLocated(by_enterEmail));
         enterEmail.sendKeys("company");
     }
+    public void enterEmailAddressData(String validEmail) {
+        new WebDriverWait(AppDriver.getDriver(), Duration.ofSeconds(30)).until(ExpectedConditions.presenceOfElementLocated(by_enterEmail));
+        //enterEmail.sendKeys(hc.getAlphaNumericString(emailLength) + validEmail);
+        enterEmail.sendKeys(validEmail);
+    }
 
     public void enterPassword(){
         new WebDriverWait(AppDriver.getDriver(), Duration.ofSeconds(30)).until(ExpectedConditions.presenceOfElementLocated(by_enterPassword));
         enterPassword.sendKeys("company");
 
+    }
+    public void enterPasswordData(String userPassword) {
+        new WebDriverWait(AppDriver.getDriver(), Duration.ofSeconds(20)).until(ExpectedConditions.presenceOfElementLocated(by_enterPassword));
+        enterPassword.sendKeys(userPassword);
     }
 
     public void loginUser(){
@@ -100,24 +115,39 @@ public class LoginPage {
         createAccountButton.click();
     }
 
-    public void enterValidEmailAddress() {
-        new WebDriverWait(AppDriver.getDriver(), Duration.ofSeconds(30)).until(ExpectedConditions.presenceOfElementLocated(by_pageHeader));
-        emailAddress.sendKeys("appiumDemoTest015@mailinator.com");
-    }
+//    public void enterValidEmailAddress() {
+//        new WebDriverWait(AppDriver.getDriver(), Duration.ofSeconds(30)).until(ExpectedConditions.presenceOfElementLocated(by_pageHeader));
+//        emailAddress.sendKeys("appiumDemoTest015@mailinator.com");
+//    }
 
     public void clickContinueButton() {
         continueButton.click();
     }
 
-    public void enterValidPassword() {
+//    public void enterValidPassword() {
+//        new WebDriverWait(AppDriver.getDriver(), Duration.ofSeconds(20)).until(ExpectedConditions.presenceOfElementLocated(by_confirmPasswordField));
+//        password.sendKeys("Thunder27$");
+//    }
+
+//    public void enterConfirmPassword() {
+//        confirmPassword.sendKeys("Thunder27$");
+//    }
+
+
+
+    public void enterValidEmailAddress(String validEmail) {
+        new WebDriverWait(AppDriver.getDriver(), Duration.ofSeconds(30)).until(ExpectedConditions.presenceOfElementLocated(by_pageHeader));
+        emailAddress.sendKeys(hc.getAlphaNumericString(emailLength) + validEmail);
+    }
+
+    public void enterPassword(String userPassword) {
         new WebDriverWait(AppDriver.getDriver(), Duration.ofSeconds(20)).until(ExpectedConditions.presenceOfElementLocated(by_confirmPasswordField));
-        password.sendKeys("Thunder27$");
+        password.sendKeys(userPassword);
     }
 
-    public void enterConfirmPassword() {
-        confirmPassword.sendKeys("Thunder27$");
+    public void enterConfirmPassword(String userConfirmPassword) {
+        confirmPassword.sendKeys(userConfirmPassword);
     }
-
     public void clickSignInButton() {
         signInButton.click();
     }
